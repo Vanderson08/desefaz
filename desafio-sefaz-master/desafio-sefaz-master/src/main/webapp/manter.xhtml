@@ -1,0 +1,64 @@
+<html xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>Manter Usuários</title>
+</h:head>
+<body>
+	<h:form id="lista">
+		<p:dataTable value="#{usuarioMB.usuarios}" var="usuario">
+
+			<p:column headerText="Nome">
+				<h:outputText value="#{usuario.nome}" />
+			</p:column>
+
+			<p:column headerText="E-mail">
+				<h:outputText value="#{usuario.email}" />
+			</p:column>
+
+			<p:column headerText="Senha">
+				<h:outputText value="#{usuario.senha}" />
+			</p:column>
+			<p:column headerText="Ações">
+				<p:commandButton value="Alterar"
+					oncomplete="PF('alterarUsuario').show()" process="@this"
+					update=":alterar">
+					<f:setPropertyActionListener value="#{usuario}"
+						target="#{usuarioMB.usuario}" />
+				</p:commandButton>
+				<p:commandButton value="Remover" action="#{usuarioMB.remover()}"
+					process="@this" update="@form :lista">
+					<f:setPropertyActionListener value="#{usuario}"
+						target="#{usuarioMB.usuario}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</h:form>
+	<p:dialog modal="true" height="400" width="400"
+		widgetVar="alterarUsuario">
+		<h:form id="alterar">
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Nome: " />
+				<p:inputText value="#{usuarioMB.usuario.nome}" />
+				<h:outputLabel value="E-mail" />
+				<p:inputText value="#{usuarioMB.usuario.email}" />
+				<h:outputLabel value="Senha" />
+				<p:inputText value="#{usuarioMB.usuario.senha}" />
+			</h:panelGrid>
+			<p:commandButton value="Salvar" action="#{usuarioMB.alterar()}"
+				oncomplete="reload();" process="@form"
+				update="@form :lista" />
+		</h:form>
+	</p:dialog>
+	<p:commandButton value="Incluir" action="#{usuarioMB.redirect()}"></p:commandButton>
+	
+	<script type="text/javascript">
+		function reload(){
+			document.location.reload(true);
+		}
+	</script>
+</body>
+</html>

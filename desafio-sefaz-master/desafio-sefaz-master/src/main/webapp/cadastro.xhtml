@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" lang="pt-br">
+
+<h:head>
+	<title>Cadastro de Usuário</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:messages />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+			</f:facet>
+
+			<h:outputText value="Nome:" />
+			<p:inputText value="#{usuarioMB.usuario.nome}" required="true"
+				requiredMessage="Preencha o campo Nome" />
+
+			<h:outputText value="Email:" />
+			<p:inputText value="#{usuarioMB.usuario.email}" required="true"
+				requiredMessage="Preencha o campo E-mail" />
+
+			<h:outputText value="Senha:" />
+			<p:password value="#{usuarioMB.usuario.senha}" required="true"
+				requiredMessage="Preencha o campo Senha" />
+
+			<h:outputText value="DDD:" />
+			<p:inputMask value="#{usuarioMB.telefone.ddd}" mask="99"
+				required="true" requiredMessage="Preencha o campo DDD" />
+
+			<h:outputText value="Número:" />
+			<p:inputText value="#{usuarioMB.telefone.numero}" required="true"
+				requiredMessage="Preencha o campo Número" />
+
+			<h:outputText value="Tipo:" />
+			<p:selectOneMenu id="tipo" value="#{usuarioMB.telefone.tipo}">
+				<f:selectItem itemLabel="Fixo" itemValue="Fixo" />
+				<f:selectItem itemLabel="Celular" itemValue="Celular" />
+			</p:selectOneMenu>
+		</p:panelGrid>
+		<br></br>
+		<p:commandButton value="Salvar" update="@form"
+			action="#{usuarioMB.salvar()}"></p:commandButton>
+	</h:form>
+</h:body>
+</html>
+
